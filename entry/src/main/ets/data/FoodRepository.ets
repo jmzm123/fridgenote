@@ -1,4 +1,4 @@
-import { relationalStore } from '@kit.ArkData'
+import { relationalStore, ValuesBucket } from '@kit.ArkData'
 import { DBConfig } from '../common/constants/Constants'
 import { FoodItem } from '../common/model/FoodItem'
 import { BusinessError } from '@kit.BasicServicesKit'
@@ -59,7 +59,7 @@ export class FoodRepository {
     }
     try {
       item.updatedAt = Date.now()
-      const rowId = await store.insert(DBConfig.TABLE_NAME, item.toDbValues())
+      const rowId: number = await store.insert(DBConfig.TABLE_NAME, item.toValuesBucket())
       return rowId
     } catch (e) {
       const err = e as BusinessError
@@ -77,7 +77,7 @@ export class FoodRepository {
       item.updatedAt = Date.now()
       const predicates = new relationalStore.RdbPredicates(DBConfig.TABLE_NAME)
       predicates.equalTo('id', item.id)
-      const changedRows = await store.update(item.toDbValues(), predicates)
+      const changedRows: number = await store.update(item.toValuesBucket(), predicates)
       return changedRows
     } catch (e) {
       const err = e as BusinessError
@@ -94,7 +94,7 @@ export class FoodRepository {
     try {
       const predicates = new relationalStore.RdbPredicates(DBConfig.TABLE_NAME)
       predicates.equalTo('id', id)
-      const deletedRows = await store.delete(predicates)
+      const deletedRows: number = await store.delete(predicates)
       return deletedRows
     } catch (e) {
       const err = e as BusinessError
@@ -229,7 +229,7 @@ export class FoodRepository {
     try {
       const predicates = new relationalStore.RdbPredicates(DBConfig.TABLE_NAME)
       predicates.orderByDesc('createdAt')
-      predicates.limit(limit)
+      predicates.limitAs(limit)
       const resultSet = await store.query(predicates)
       return this.resultSetToList(resultSet)
     } catch (e) {

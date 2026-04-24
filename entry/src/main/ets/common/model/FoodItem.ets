@@ -1,3 +1,5 @@
+import { ValuesBucket } from '@kit.ArkData'
+
 export class FoodItem {
   id: number = 0
   name: string = ''
@@ -18,18 +20,18 @@ export class FoodItem {
     this.updatedAt = now
   }
 
-  toDbValues(): Record<string, Object> {
-    return {
-      'name': this.name,
-      'category': this.category,
-      'storageLocation': this.storageLocation,
-      'quantity': this.quantity,
-      'unit': this.unit,
-      'purchaseDate': this.purchaseDate,
-      'expiryDate': this.expiryDate,
-      'notes': this.notes,
-      'createdAt': this.createdAt,
-      'updatedAt': this.updatedAt
-    }
+  toValuesBucket(): ValuesBucket {
+    const bucket: ValuesBucket = {}
+    bucket.name = this.name
+    bucket.category = this.category
+    bucket.storageLocation = this.storageLocation
+    bucket.quantity = this.quantity
+    bucket.unit = this.unit
+    bucket.purchaseDate = this.purchaseDate
+    bucket.expiryDate = this.expiryDate
+    bucket.notes = this.notes
+    bucket.createdAt = this.createdAt
+    bucket.updatedAt = this.updatedAt
+    return bucket
   }
 }

@@ -1,8 +1,8 @@
 import { notificationManager } from '@kit.NotificationKit'
 import { wantAgent } from '@kit.AbilityKit'
 import { FoodRepository } from '../../data/FoodRepository'
-import { getCategoryName } from '../../constants/Constants'
-import { DateUtils } from '../../utils/DateUtils'
+import { getCategoryName } from '../constants/Constants'
+import { DateUtils } from './DateUtils'
 import { common } from '@kit.AbilityKit'
 
 export class NotificationUtils {
@@ -86,8 +86,7 @@ export class NotificationUtils {
           }
         ],
         requestCode: 0,
-        operationType: wantAgent.OperationType.START_ABILITY,
-        flags: wantAgent.WantAgentFlags.UPDATE_PRESENT_FLAG
+        operationType: wantAgent.OperationType.START_ABILITY
       }
 
       const agent = await wantAgent.getWantAgent(wantAgentInfo)

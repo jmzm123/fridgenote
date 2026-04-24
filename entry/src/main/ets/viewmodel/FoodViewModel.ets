@@ -131,5 +131,5 @@ export interface HomeData {
   expiredItems: FoodItem[]
   expiringSoonItems: FoodItem[]
   recentItems: FoodItem[]
-  categoryCount: Record<number, number>
+  categoryCount: number[]
 }
